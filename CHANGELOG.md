@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.0.4
+
+- Added Settings sidebar panel with custom activity bar icon
+- Added "Open Extension Settings" button in settings sidebar
+- Added comprehensive debug logging for extension initialization
+
 ## 0.0.3
 
 - Added a "Configure Keybinds for Retype" command as a Ctrl+Shift+P menu option

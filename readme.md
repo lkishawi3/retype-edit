@@ -96,35 +96,12 @@ retype-extension/
 
 ## Recent Updates
 
-### Fixed: Document Overlay Protection
-- **Issue Fixed**: Extension now works as a true overlay without modifying the original document
-- **How it works**: Typing is intercepted before it reaches the document, ensuring your code stays untouched
-- **Behavior**: 
-  - Original text is never modified
-  - Cursor advances only on correct characters
-  - Incorrect characters are highlighted in red and block progress
-  - Backspace works correctly to fix errors
-
-### Fixed: Tab Handling & Special Characters
-- **Tab Support**: Tab key now works correctly without making code editable
-  - Respects editor settings (tab size, spaces vs tabs)
-  - Tab and space are treated as equivalent for indentation
-  - No more accidental document editing when using Tab
-- **Better Visibility**: Untyped text is now darker and easier to read
-- **Special Characters**: No more getting stuck on quotes and special symbols
-  - Smart quotes vs straight quotes are treated as equivalent
-  - Unicode normalization handles different character encodings
-  - Support for special symbols like ©, ®, ™, ellipsis, etc.
-
-### Fixed: MonkeyType-Style Cursor & Syntax Highlighting
-- **Perfect Cursor**: Clean line cursor (`│`) just like MonkeyType
-  - No more block cursor appearing over characters
-  - Smooth cursor animations between positions  
-  - Native VS Code cursor completely hidden during practice
-- **Preserved Syntax Highlighting**: Your code keeps its colors!
-  - Keywords, strings, numbers stay properly highlighted
-  - Untyped text is faded but retains syntax colors
-  - Typed text shows subtle success indication without color override
+- Changed the start typing test to use highlight instead of cursor
+- Added a "Configure Keybinds for Retype" command as a Ctrl+Shift+P menu option
+- Added "Reset Current Session" functionality
+- Changed startPractice and stopPractice to a togglePractice command, now using "Ctrl+`"
+- Fixed a bug where ` and ' were recognised as the same character
+- Added Settings sidebar panel with custom activity bar icon
 
 ## Known Issues
 
@@ -145,7 +122,8 @@ retype-extension/
 
 - Paste in typing test
 - Edit mode in typing test with git-like diff for changes to the original text
-- Git mode paste that only shows changed content that was replaced to show changes during the typing test edit 
+- Git mode paste that only shows changed content that was replaced to show changes during the typing test edit
+- Git changes mode that allows you to retype the current git dif status
 
 ## License
 
