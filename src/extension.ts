@@ -33,8 +33,8 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Listen for typing mode changes
     retypeMode.onModeChanged(updateStatusBar);
-    
-// Update status bar periodically during active sessions
+
+    // Update status bar periodically during active sessions
     setInterval(updateStatusBar, 1000);
 }
 
@@ -47,4 +47,4 @@ export function deactivate() {
         statsTracker.dispose();
         statsTracker = undefined;
     }
-} 
+}

@@ -125,7 +125,13 @@ export class RetypeMode {
     }
 
     public resetSession(): void {
-        if (!this.active || !this.currentEditor || !this.startPosition) return;
+        if (!this.currentEditor || !this.startPosition) {
+            return;
+        }
+
+        // Ensure practice mode is marked active and editor is in the expected state
+        this.active = true;
+        this.isReadOnly = true;
 
         // Reset typed text and errors
         this.typedText = '';
@@ -136,11 +142,11 @@ export class RetypeMode {
         this.statsTracker.reset();
         this.statsTracker.startTracking();
 
-        // Reset decorations
+        // Reset decorations and cursor position
         this.decorationManager.initializeDecorations(this.currentEditor, this.startPosition, this.originalText.length);
-
-        // Move cursor back to start position
         this.currentEditor.selection = new vscode.Selection(this.startPosition, this.startPosition);
+        this.updateCursorPosition();
+        this.updateDecorations();
     }
 
     public isActive(): boolean {
@@ -461,11 +467,11 @@ export class RetypeMode {
         return char.normalize('NFC');
     }
 
-    private areQuotesEquivalent(typed: string, expected: string): boolean {
+private areQuotesEquivalent(typed: string, expected: string): boolean {
         // Map of equivalent quote characters using Unicode escape sequences
         const quoteMap: { [key: string]: string[] } = {
             '"': ['"', '\u201C', '\u201D'], // straight double quote, left double quote, right double quote
-            "'": ["'", '\u2018', '\u2019', '`'], // straight single quote, left single quote, right single quote, backtick
+            "'": ["'", '\u2018', '\u2019'], // straight single quote, left single quote, right single quote
             '`': ['`', '\u2018'], // backtick, left single quote
         };
 

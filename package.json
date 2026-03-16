@@ -22,31 +22,49 @@
         "programming",
         "education"
     ],
-"activationEvents": [
-    "onCommand:retype.togglePractice",
-    "onCommand:retype.resetSession"
-],
-"main": "./out/extension.js",
-"contributes": {
-    "commands": [
-        {
-            "command": "retype.togglePractice",
-            "title": "Toggle Practice Mode",
-            "category": "ReType"
-        },
-        {
-            "command": "retype.resetSession",
-            "title": "Reset Current Session",
-            "category": "ReType"
-        }
+    "activationEvents": [
+        "onCommand:retype.startPractice",
+        "onCommand:retype.stopPractice",
+        "onCommand:retype.togglePractice",
+        "onCommand:retype.resetSession",
+        "onCommand:retype.configureKeybinds"
     ],
-    "keybindings": [
-        {
-            "command": "retype.togglePractice",
-            "key": "ctrl+`",
-            "mac": "cmd+`"
-        }
-    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "retype.startPractice",
+                "title": "Start Practice Mode",
+                "category": "ReType"
+            },
+            {
+                "command": "retype.togglePractice",
+                "title": "Toggle Practice Mode",
+                "category": "ReType"
+            },
+            {
+                "command": "retype.stopPractice",
+                "title": "Stop Practice Mode",
+                "category": "ReType"
+            },
+            {
+                "command": "retype.resetSession",
+                "title": "Reset Current Session",
+                "category": "ReType"
+            },
+            {
+                "command": "retype.configureKeybinds",
+                "title": "Configure ReType Keybinds",
+                "category": "ReType"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "retype.togglePractice",
+                "key": "ctrl+`",
+                "mac": "cmd+`"
+            }
+        ],
         "configuration": {
             "title": "ReType",
             "properties": {

@@ -59,15 +59,22 @@ export function registerCommands(context: vscode.ExtensionContext, retypeMode: R
         vscode.window.showInformationMessage('ReType: Practice mode stopped');
     });
 
-    // Reset Session command
+    // Reset Current Session command
     const resetSessionCommand = vscode.commands.registerCommand('retype.resetSession', () => {
         if (!retypeMode.isActive()) {
-            vscode.window.showWarningMessage('ReType: No active practice session to reset');
+            vscode.window.showWarningMessage('ReType: Practice mode is not active');
             return;
         }
 
         retypeMode.resetSession();
-        vscode.window.showInformationMessage('ReType: Session reset');
+        vscode.window.showInformationMessage('ReType: Current practice session restarted from the beginning');
+    });
+
+    // Configure ReType keybinds command
+    const configureKeybindsCommand = vscode.commands.registerCommand('retype.configureKeybinds', async () => {
+        // Open the global keybindings UI with the filter pre-filled to "retype"
+        // so only ReType-related keybindings are shown.
+        await vscode.commands.executeCommand('workbench.action.openGlobalKeybindings', 'retype.');
     });
 
     // Register all commands
@@ -75,6 +82,7 @@ export function registerCommands(context: vscode.ExtensionContext, retypeMode: R
         togglePracticeCommand,
         startPracticeCommand,
         stopPracticeCommand,
-        resetSessionCommand
+        resetSessionCommand,
+        configureKeybindsCommand
     );
-} 
+}

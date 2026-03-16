@@ -24,8 +24,8 @@ Learn coding by actually typing real code in VS Code! With ReType, beginners can
 1. Open any code file in VS Code
 2. **Select/highlight the text you want to practice typing**
 3. Use one of these methods to start:
-   - **Command Palette**: `Ctrl+Shift+P` → "ReType: Start Practice Mode"
-   - **Keyboard Shortcut**: `Ctrl+\`` (Windows/Linux) or `Cmd+\`` (Mac)
+   - **Command Palette**: Ctrl+Shift+P → "ReType: Start Practice Mode"
+   - **Keyboard Shortcut**: <kbd>Ctrl</kbd>+<kbd>`</kbd> (Windows/Linux) or <kbd>Cmd</kbd>+<kbd>`</kbd> (Mac)
 
 ### During Practice
 
@@ -40,7 +40,7 @@ Learn coding by actually typing real code in VS Code! With ReType, beginners can
 
 ### Ending Practice
 
-- **Stop Practice**: `Ctrl+\`` (Windows/Linux) or `Cmd+\`` (Mac) - same key toggles start/stop
+- **Stop Practice**: <kbd>Ctrl</kbd>+<kbd>`</kbd> (Windows/Linux) or <kbd>Cmd</kbd>+<kbd>`</kbd> (Mac) - same key toggles start/stop
 - **Reset Session**: Use "ReType: Reset Current Session" from command palette
 - **Auto-complete**: When you finish typing all text, you'll see a completion dialog
 
@@ -48,8 +48,9 @@ Learn coding by actually typing real code in VS Code! With ReType, beginners can
 
 | Command | Shortcut | Description |
 |---------|----------|-------------|
-| `ReType: Start Practice Mode` | `Ctrl+\`` / `Cmd+\`` | Start typing practice on selected text |
-| `ReType: Stop Practice Mode` | `Ctrl+\`` / `Cmd+\`` | Stop current practice session (same key toggles) |
+| `ReType: Toggle Practice Mode` | <kbd>Ctrl</kbd>+<kbd>`</kbd> / <kbd>Ctrl</kbd>+<kbd>`</kbd> | Toggle typing practice on selected text |
+| `ReType: Start Practice Mode` | - | Start typing practice on selected text |
+| `ReType: Stop Practice Mode` | - | Stop current practice session (same key toggles) |
 | `ReType: Reset Current Session` | - | Reset current session and start over |
 
 ## Settings
@@ -58,14 +59,6 @@ Access settings via `File > Preferences > Settings` and search for "ReType":
 
 - **`retype.theme`**: Color theme for typing practice (default: "solarized-light")
 - **`retype.showRealTimeStats`**: Show real-time typing statistics in status bar (default: true)
-
-## Tips for Best Results
-
-1. **Choose appropriate text**: Start with simpler code snippets and work your way up
-2. **Focus on accuracy**: Speed will come naturally with practice
-3. **Use proper finger placement**: Practice proper typing technique
-4. **Regular practice**: Consistent daily practice yields the best results
-5. **Language variety**: Practice with different programming languages to improve versatility
 
 ## Development
 
@@ -139,7 +132,7 @@ retype-extension/
 - Some complex Unicode characters may not be handled correctly
 - Multi-cursor editing is not supported during practice mode
 
-## Upcoming Features (Phase 2)
+## Upcoming Features
 
 - Advanced statistics and progress tracking
 - Multiple color themes
@@ -147,6 +140,12 @@ retype-extension/
 - Achievement system and gamification
 - Export statistics and progress data
 - Timed practice sessions
+
+## ReType-Edit Upcoming Features
+
+- Paste in typing test
+- Edit mode in typing test with git-like diff for changes to the original text
+- Git mode paste that only shows changed content that was replaced to show changes during the typing test edit 
 
 ## License
 
