@@ -1,6 +1,6 @@
 # ReType - Quick Start Guide
 
-## 🚀 Get Started in 30 Seconds
+## Get Started
 
 ### 1. Install Dependencies
 ```bash
@@ -15,8 +15,8 @@ npm run compile
    - `sample-practice.py` (Python)
 
 ### 3. Start Practicing
-1. Position your cursor anywhere in the file
-2. Press `Ctrl+Shift+R` (or `Cmd+Shift+R` on Mac)
+1. **Select/highlight the text you want to practice typing**
+2. Press `Ctrl+\`` (or `Cmd+\`` on Mac)
 3. Start typing! Watch the colors change as you type
 
 ### 4. Visual Feedback & Behavior
@@ -24,26 +24,18 @@ npm run compile
 - **Normal text**: What you've typed correctly
 - **Red text**: Errors (cursor stops here until you type the correct character)
 - **Green highlight**: Current character to type
-- **📝 Important**: Your original text is NEVER modified - this is a pure overlay!
+- **Important**: Your original text is NEVER modified - this is a pure overlay!
 
 ### 5. Monitor Progress
 - Check the status bar for real-time WPM, accuracy, and error count
 - Complete a section to see your session summary
 
 ### 6. Controls
-- `Ctrl+Shift+R` / `Cmd+Shift+R`: Start practice
-- `Ctrl+Shift+E` / `Cmd+Shift+E`: Stop practice
+- `Ctrl+\`` / `Cmd+\``: Toggle practice (start/stop) - after selecting text
 - Command Palette → "ReType: Reset Current Session": Start over
 
-## 🎯 Tips for Best Experience
 
-1. **Start small**: Begin with a few lines of code
-2. **Focus on accuracy**: Speed comes with practice
-3. **Use proper typing technique**: All fingers, proper posture
-4. **Practice regularly**: 10-15 minutes daily is better than long sessions
-5. **Try different languages**: Each has unique typing patterns
-
-## 🔧 Development Mode
+## Development Mode
 
 To work on the extension:
 ```bash
@@ -52,7 +44,7 @@ npm run watch  # Auto-compile on changes
 
 Then press `F5` to launch the extension host and test your changes.
 
-## 📁 Sample Files Included
+## Sample Files Included
 
 - `sample-practice.js`: JavaScript with modern ES6+ syntax
 - `sample-practice.py`: Python with common patterns and constructs  
@@ -60,7 +52,7 @@ Then press `F5` to launch the extension host and test your changes.
 - `test-special-chars.js`: Special characters and quotes testing
 - `test-cursor-animation.js`: Cursor animation and syntax highlighting testing
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **Extension not loading?**
 - Make sure you compiled with `npm run compile`
@@ -85,4 +77,4 @@ Then press `F5` to launch the extension host and test your changes.
 
 ---
 
-**Ready to improve your coding typing speed? Start practicing now!** 🎉 
+**Ready to improve your coding typing speed? Start practicing now!** 

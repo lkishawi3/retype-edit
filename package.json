@@ -22,42 +22,31 @@
         "programming",
         "education"
     ],
-    "activationEvents": [
-        "onCommand:retype.startPractice",
-        "onCommand:retype.stopPractice",
-        "onCommand:retype.resetSession"
+"activationEvents": [
+    "onCommand:retype.togglePractice",
+    "onCommand:retype.resetSession"
+],
+"main": "./out/extension.js",
+"contributes": {
+    "commands": [
+        {
+            "command": "retype.togglePractice",
+            "title": "Toggle Practice Mode",
+            "category": "ReType"
+        },
+        {
+            "command": "retype.resetSession",
+            "title": "Reset Current Session",
+            "category": "ReType"
+        }
     ],
-    "main": "./out/extension.js",
-    "contributes": {
-        "commands": [
-            {
-                "command": "retype.startPractice",
-                "title": "Start Practice Mode",
-                "category": "ReType"
-            },
-            {
-                "command": "retype.stopPractice",
-                "title": "Stop Practice Mode",
-                "category": "ReType"
-            },
-            {
-                "command": "retype.resetSession",
-                "title": "Reset Current Session",
-                "category": "ReType"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "retype.startPractice",
-                "key": "ctrl+shift+r",
-                "mac": "cmd+shift+r"
-            },
-            {
-                "command": "retype.stopPractice",
-                "key": "ctrl+shift+q",
-                "mac": "cmd+shift+q"
-            }
-        ],
+    "keybindings": [
+        {
+            "command": "retype.togglePractice",
+            "key": "ctrl+`",
+            "mac": "cmd+`"
+        }
+    ],
         "configuration": {
             "title": "ReType",
             "properties": {

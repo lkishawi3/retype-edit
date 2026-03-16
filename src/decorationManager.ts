@@ -31,15 +31,14 @@ export class DecorationManager {
         };
     }
 
-    public initializeDecorations(editor: vscode.TextEditor, startPosition: vscode.Position): void {
+    public initializeDecorations(editor: vscode.TextEditor, startPosition: vscode.Position, practiceTextLength: number): void {
         if (this.isDisposed) return;
 
         const document = editor.document;
-        const documentText = document.getText();
         const startOffset = document.offsetAt(startPosition);
-        const endOffset = documentText.length;
+        const endOffset = startOffset + practiceTextLength;
 
-        // Create range for all untyped text from start position to end of document
+        // Create range for all untyped text from start position to end of practice text
         if (startOffset < endOffset) {
             const untypedRange = new vscode.Range(
                 startPosition,
@@ -104,14 +103,14 @@ export class DecorationManager {
             );
         }
 
-        // Untyped text ranges (everything after current position)
+        // Untyped text ranges (everything after current position up to end of practice text)
         const untypedStartOffset = startOffset + typedLength + 1;
-        const documentEndOffset = document.getText().length;
+        const practiceEndOffset = startOffset + originalText.length;
         
-        if (untypedStartOffset < documentEndOffset) {
+        if (untypedStartOffset < practiceEndOffset) {
             const untypedRange = new vscode.Range(
                 document.positionAt(untypedStartOffset),
-                document.positionAt(documentEndOffset)
+                document.positionAt(practiceEndOffset)
             );
             this.currentState.untypedRanges = [untypedRange];
         }

@@ -32,29 +32,23 @@ export class RetypeMode {
 
         this.currentEditor = editor;
         
-        // Check if cursor is at the end of the document
-        const document = editor.document;
-        const lastPosition = document.positionAt(document.getText().length);
-        const currentPosition = editor.selection.active;
-        
-        // If cursor is at or near the end of the document, move to the beginning
-        if (currentPosition.line >= lastPosition.line - 1 && 
-            currentPosition.character >= lastPosition.character - 1) {
-            this.startPosition = new vscode.Position(0, 0);
-            editor.selection = new vscode.Selection(this.startPosition, this.startPosition);
-        } else {
-            this.startPosition = editor.selection.active;
+        // Check if there's a text selection
+        if (editor.selection.isEmpty) {
+            throw new Error('Please select the text you want to practice typing before starting');
         }
+
+        const document = editor.document;
+        
+        // Use the selection start as the start position
+        this.startPosition = editor.selection.start;
         
         this.active = true;
         this.typedText = '';
         this.errors = [];
         this.currentPosition = 0;
 
-        // Get text from cursor position to end of document
-        const startOffset = document.offsetAt(this.startPosition);
-        const endOffset = document.getText().length;
-        this.originalText = document.getText().substring(startOffset);
+        // Get the selected text as the practice text
+        this.originalText = document.getText(editor.selection);
 
         // Make document read-only during practice
         this.isReadOnly = true;
@@ -70,7 +64,7 @@ export class RetypeMode {
         editor.selection = new vscode.Selection(this.startPosition, this.startPosition);
 
         // Initialize decorations
-        this.decorationManager.initializeDecorations(editor, this.startPosition);
+        this.decorationManager.initializeDecorations(editor, this.startPosition, this.originalText.length);
 
         // Start stats tracking
         this.statsTracker.reset();
@@ -143,7 +137,7 @@ export class RetypeMode {
         this.statsTracker.startTracking();
 
         // Reset decorations
-        this.decorationManager.initializeDecorations(this.currentEditor, this.startPosition);
+        this.decorationManager.initializeDecorations(this.currentEditor, this.startPosition, this.originalText.length);
 
         // Move cursor back to start position
         this.currentEditor.selection = new vscode.Selection(this.startPosition, this.startPosition);
@@ -308,6 +302,17 @@ export class RetypeMode {
             // Remove any existing error at this position
             this.errors = this.errors.filter(error => error.position !== this.currentPosition - 1);
 
+            // Special handling for CRLF: if the character we just matched in originalText was a newline,
+            // and the next char in originalText is the complementary newline, skip it
+            const justMatchedChar = this.originalText[this.currentPosition - 1];
+            if ((justMatchedChar === '\n' || justMatchedChar === '\r') && this.currentPosition < this.originalText.length) {
+                const nextChar = this.originalText[this.currentPosition];
+                // If we just matched \r and next is \n, or just matched \n and next is \r, skip the next one
+                if ((justMatchedChar === '\r' && nextChar === '\n') || (justMatchedChar === '\n' && nextChar === '\r')) {
+                    this.currentPosition++;
+                }
+            }
+
             // Move cursor to next position
             this.updateCursorPosition();
 
@@ -353,6 +358,12 @@ export class RetypeMode {
         const normalizedExpected = this.normalizeCharacter(expected);
         
         if (normalizedTyped === normalizedExpected) {
+            return true;
+        }
+
+        // Handle newline equivalence (CRLF vs LF)
+        // Windows uses \r\n, but Enter key sends \n
+        if ((expected === '\r' || expected === '\n') && (typed === '\r' || typed === '\n')) {
             return true;
         }
 

@@ -2,6 +2,30 @@ import * as vscode from 'vscode';
 import { RetypeMode } from './retypeMode';
 
 export function registerCommands(context: vscode.ExtensionContext, retypeMode: RetypeMode) {
+    // Toggle Practice Mode command (used for both start and stop with same keybinding)
+    const togglePracticeCommand = vscode.commands.registerCommand('retype.togglePractice', async () => {
+        if (retypeMode.isActive()) {
+            // Stop practice if already active
+            retypeMode.stopPractice();
+            vscode.window.showInformationMessage('ReType: Practice mode stopped');
+        } else {
+            // Start practice if not active
+            const activeEditor = vscode.window.activeTextEditor;
+            if (!activeEditor) {
+                vscode.window.showWarningMessage('ReType: Please open a file to start practice mode');
+                return;
+            }
+
+            try {
+                await retypeMode.startPractice(activeEditor);
+                vscode.window.showInformationMessage('ReType: Practice mode started! Start typing to begin.');
+            } catch (error) {
+                const errorMessage = error instanceof Error ? error.message : String(error);
+                vscode.window.showErrorMessage(`ReType: ${errorMessage}`);
+            }
+        }
+    });
+
     // Start Practice Mode command
     const startPracticeCommand = vscode.commands.registerCommand('retype.startPractice', async () => {
         const activeEditor = vscode.window.activeTextEditor;
@@ -19,7 +43,8 @@ export function registerCommands(context: vscode.ExtensionContext, retypeMode: R
             await retypeMode.startPractice(activeEditor);
             vscode.window.showInformationMessage('ReType: Practice mode started! Start typing to begin.');
         } catch (error) {
-            vscode.window.showErrorMessage(`ReType: Failed to start practice mode: ${error}`);
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            vscode.window.showErrorMessage(`ReType: ${errorMessage}`);
         }
     });
 
@@ -47,6 +72,7 @@ export function registerCommands(context: vscode.ExtensionContext, retypeMode: R
 
     // Register all commands
     context.subscriptions.push(
+        togglePracticeCommand,
         startPracticeCommand,
         stopPracticeCommand,
         resetSessionCommand

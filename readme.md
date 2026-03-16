@@ -1,31 +1,31 @@
 # ReType - VS Code Extension
 
-Transform your VS Code editor into a typing practice arena! ReType turns any code file into a MonkeyType-style typing practice session, helping you improve your programming typing speed and accuracy.
+Learn coding by actually typing real code in VS Code! With ReType, beginners can highlight code or paste in any snippet, then type over it as practice—helping you get used to programming syntax and structure.
 
-## 🚀 Features
+## Features
 
-### Phase 1 (Current)
+### Current
 
-- **🎯 Practice Mode**: Convert any file into a typing practice session
-- **🎨 Visual Feedback**: Solarized Light color scheme with real-time visual feedback
+- **Practice Mode**: Convert any file into a typing practice session
+- **Visual Feedback**: Solarized Light color scheme with real-time visual feedback
   - Faint text for untyped content
   - Normal color for correctly typed text
   - Red highlighting for errors
   - Green highlighting for current character
-- **📊 Real-time Stats**: Live WPM, accuracy, and error tracking in the status bar
-- **⚡ Smart Error Handling**: Backspace support with intelligent error correction
-- **🔄 Session Management**: Reset and restart sessions easily
-- **🖥️ Language Agnostic**: Works with any programming language supported by VS Code
+- **Real-time Stats**: Live WPM, accuracy, and error tracking in the status bar
+- **Smart Error Handling**: Backspace support with intelligent error correction
+- **Session Management**: Reset and restart sessions easily
+- **Language Agnostic**: Works with any programming language supported by VS Code
 
-## 📖 Usage
+## Usage
 
 ### Getting Started
 
 1. Open any code file in VS Code
-2. Position your cursor where you want to start practicing
+2. **Select/highlight the text you want to practice typing**
 3. Use one of these methods to start:
    - **Command Palette**: `Ctrl+Shift+P` → "ReType: Start Practice Mode"
-   - **Keyboard Shortcut**: `Ctrl+Shift+R` (Windows/Linux) or `Cmd+Shift+R` (Mac)
+   - **Keyboard Shortcut**: `Ctrl+\`` (Windows/Linux) or `Cmd+\`` (Mac)
 
 ### During Practice
 
@@ -40,7 +40,7 @@ Transform your VS Code editor into a typing practice arena! ReType turns any cod
 
 ### Ending Practice
 
-- **Stop Practice**: `Ctrl+Shift+E` (Windows/Linux) or `Cmd+Shift+E` (Mac)
+- **Stop Practice**: `Ctrl+\`` (Windows/Linux) or `Cmd+\`` (Mac) - same key toggles start/stop
 - **Reset Session**: Use "ReType: Reset Current Session" from command palette
 - **Auto-complete**: When you finish typing all text, you'll see a completion dialog
 
@@ -48,18 +48,18 @@ Transform your VS Code editor into a typing practice arena! ReType turns any cod
 
 | Command | Shortcut | Description |
 |---------|----------|-------------|
-| `ReType: Start Practice Mode` | `Ctrl+Shift+R` / `Cmd+Shift+R` | Start typing practice on current file |
-| `ReType: Stop Practice Mode` | `Ctrl+Shift+E` / `Cmd+Shift+E` | Stop current practice session |
+| `ReType: Start Practice Mode` | `Ctrl+\`` / `Cmd+\`` | Start typing practice on selected text |
+| `ReType: Stop Practice Mode` | `Ctrl+\`` / `Cmd+\`` | Stop current practice session (same key toggles) |
 | `ReType: Reset Current Session` | - | Reset current session and start over |
 
-## ⚙️ Settings
+## Settings
 
 Access settings via `File > Preferences > Settings` and search for "ReType":
 
 - **`retype.theme`**: Color theme for typing practice (default: "solarized-light")
 - **`retype.showRealTimeStats`**: Show real-time typing statistics in status bar (default: true)
 
-## 🎯 Tips for Best Results
+## Tips for Best Results
 
 1. **Choose appropriate text**: Start with simpler code snippets and work your way up
 2. **Focus on accuracy**: Speed will come naturally with practice
@@ -67,7 +67,7 @@ Access settings via `File > Preferences > Settings` and search for "ReType":
 4. **Regular practice**: Consistent daily practice yields the best results
 5. **Language variety**: Practice with different programming languages to improve versatility
 
-## 🔧 Development
+## Development
 
 ### Building from Source
 
@@ -101,45 +101,45 @@ retype-extension/
 └── README.md               # This file
 ```
 
-## 🔧 Recent Updates
+## Recent Updates
 
-### ✅ Fixed: Document Overlay Protection
+### Fixed: Document Overlay Protection
 - **Issue Fixed**: Extension now works as a true overlay without modifying the original document
 - **How it works**: Typing is intercepted before it reaches the document, ensuring your code stays untouched
 - **Behavior**: 
-  - ✅ Original text is never modified
-  - ✅ Cursor advances only on correct characters
-  - ✅ Incorrect characters are highlighted in red and block progress
-  - ✅ Backspace works correctly to fix errors
+  - Original text is never modified
+  - Cursor advances only on correct characters
+  - Incorrect characters are highlighted in red and block progress
+  - Backspace works correctly to fix errors
 
-### ✅ Fixed: Tab Handling & Special Characters
+### Fixed: Tab Handling & Special Characters
 - **Tab Support**: Tab key now works correctly without making code editable
-  - ✅ Respects editor settings (tab size, spaces vs tabs)
-  - ✅ Tab and space are treated as equivalent for indentation
-  - ✅ No more accidental document editing when using Tab
+  - Respects editor settings (tab size, spaces vs tabs)
+  - Tab and space are treated as equivalent for indentation
+  - No more accidental document editing when using Tab
 - **Better Visibility**: Untyped text is now darker and easier to read
 - **Special Characters**: No more getting stuck on quotes and special symbols
-  - ✅ Smart quotes vs straight quotes are treated as equivalent
-  - ✅ Unicode normalization handles different character encodings
-  - ✅ Support for special symbols like ©, ®, ™, ellipsis, etc.
+  - Smart quotes vs straight quotes are treated as equivalent
+  - Unicode normalization handles different character encodings
+  - Support for special symbols like ©, ®, ™, ellipsis, etc.
 
-### ✅ Fixed: MonkeyType-Style Cursor & Syntax Highlighting
+### Fixed: MonkeyType-Style Cursor & Syntax Highlighting
 - **Perfect Cursor**: Clean line cursor (`│`) just like MonkeyType
-  - ✅ No more block cursor appearing over characters
-  - ✅ Smooth cursor animations between positions  
-  - ✅ Native VS Code cursor completely hidden during practice
+  - No more block cursor appearing over characters
+  - Smooth cursor animations between positions  
+  - Native VS Code cursor completely hidden during practice
 - **Preserved Syntax Highlighting**: Your code keeps its colors!
-  - ✅ Keywords, strings, numbers stay properly highlighted
-  - ✅ Untyped text is faded but retains syntax colors
-  - ✅ Typed text shows subtle success indication without color override
+  - Keywords, strings, numbers stay properly highlighted
+  - Untyped text is faded but retains syntax colors
+  - Typed text shows subtle success indication without color override
 
-## 🐛 Known Issues
+## Known Issues
 
 - Large files may impact performance during decoration updates
 - Some complex Unicode characters may not be handled correctly
 - Multi-cursor editing is not supported during practice mode
 
-## 🚀 Upcoming Features (Phase 2)
+## Upcoming Features (Phase 2)
 
 - Advanced statistics and progress tracking
 - Multiple color themes
@@ -148,14 +148,14 @@ retype-extension/
 - Export statistics and progress data
 - Timed practice sessions
 
-## 📄 License
+## License
 
 This extension is provided as-is for educational and productivity purposes.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit issues and pull requests.
 
 ---
 
-**Happy Typing!** 🎉
+**Happy Typing!**
