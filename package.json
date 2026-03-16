@@ -54,8 +54,8 @@
             },
             {
                 "command": "retype.stopPractice",
-                "key": "ctrl+shift+e",
-                "mac": "cmd+shift+e"
+                "key": "ctrl+shift+q",
+                "mac": "cmd+shift+q"
             }
         ],
         "configuration": {
