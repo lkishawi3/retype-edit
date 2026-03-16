@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.0.5
+
+- Add "Paste & Practice" feature (Ctrl+Shift+V)
+- Fix ReType: command 'tab' already exists error
+- Fix command 'default:deleteLeft' not found after exiting practice mode
+- Improve event listener cleanup to prevent command persistence issues
+- Disable inline suggestions during practice mode to prevent interference
+- Properly restore inline suggestions setting when practice mode ends
+
 ## 0.0.4
 
 - Added Settings sidebar panel with custom activity bar icon

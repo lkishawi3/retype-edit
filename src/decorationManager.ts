@@ -170,4 +170,4 @@ export class DecorationManager {
         this.decorationTypes.currentDecoration.dispose();
         this.decorationTypes.animatedCursor.dispose();
     }
-} 
+}

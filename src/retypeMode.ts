@@ -13,11 +13,13 @@ export class RetypeMode {
     private typedText: string = '';
     private typeListener: vscode.Disposable | undefined;
     private selectionChangeListener: vscode.Disposable | undefined;
+    private commandListeners: vscode.Disposable[] = [];
     private modeChangedCallback: (() => void) | undefined;
     private errors: { position: number; character: string }[] = [];
     private currentPosition: number = 0; // Current position in the text being typed
     private isReadOnly: boolean = false;
     private originalCursorStyle: vscode.TextEditorCursorStyle | undefined;
+    private originalInlineSuggestSetting: boolean | undefined;
 
     constructor(context: vscode.ExtensionContext, statsTracker: StatsTracker) {
         this.context = context;
@@ -66,6 +68,16 @@ export class RetypeMode {
         // Initialize decorations
         this.decorationManager.initializeDecorations(editor, this.startPosition, this.originalText.length);
 
+        // Disable inline suggestions during practice mode
+        const editorConfig = vscode.workspace.getConfiguration('editor');
+        this.originalInlineSuggestSetting = editorConfig.get<boolean>('inlineSuggest.enabled', true);
+        await editorConfig.update('inlineSuggest.enabled', false, vscode.ConfigurationTarget.Global);
+
+        // Hide any existing inline suggestions / completion widgets so
+        // they do not overlap with ReType's own ghost text.
+        vscode.commands.executeCommand('editor.action.inlineSuggest.hide');
+        vscode.commands.executeCommand('hideSuggestWidget');
+
         // Start stats tracking
         this.statsTracker.reset();
         this.statsTracker.startTracking();
@@ -83,6 +95,13 @@ export class RetypeMode {
         if (!this.active) return;
 
         this.active = false;
+
+        // Restore inline suggestions setting
+        if (this.originalInlineSuggestSetting !== undefined) {
+            const editorConfig = vscode.workspace.getConfiguration('editor');
+            editorConfig.update('inlineSuggest.enabled', this.originalInlineSuggestSetting, vscode.ConfigurationTarget.Global);
+            this.originalInlineSuggestSetting = undefined;
+        }
 
         // Restore document editing
         this.isReadOnly = false;
@@ -172,9 +191,6 @@ export class RetypeMode {
             }
         });
 
-        // Register with context for proper disposal
-        this.context.subscriptions.push(this.typeListener);
-
         // Intercept tab command as well
         const tabListener = vscode.commands.registerCommand('tab', () => {
             if (!this.active || !this.currentEditor) {
@@ -186,7 +202,7 @@ export class RetypeMode {
             return; // Don't execute default tab to prevent document modification
         });
 
-        this.context.subscriptions.push(tabListener);
+        this.commandListeners.push(tabListener);
 
         // Intercept backspace command
         const backspaceListener = vscode.commands.registerCommand('deleteLeft', () => {
@@ -199,7 +215,7 @@ export class RetypeMode {
             return; // Don't execute default backspace to prevent document modification
         });
 
-        this.context.subscriptions.push(backspaceListener);
+        this.commandListeners.push(backspaceListener);
 
         // Prevent left arrow key movement during practice
         const leftArrowListener = vscode.commands.registerCommand('cursorLeft', () => {
@@ -210,7 +226,7 @@ export class RetypeMode {
             return;
         });
 
-        this.context.subscriptions.push(leftArrowListener);
+        this.commandListeners.push(leftArrowListener);
 
         // Prevent right arrow key movement during practice
         const rightArrowListener = vscode.commands.registerCommand('cursorRight', () => {
@@ -221,7 +237,7 @@ export class RetypeMode {
             return;
         });
 
-        this.context.subscriptions.push(rightArrowListener);
+        this.commandListeners.push(rightArrowListener);
 
         // Prevent other cursor movement commands
         const cursorMovementCommands = [
@@ -237,7 +253,7 @@ export class RetypeMode {
                 // Do nothing - prevent cursor movement during practice
                 return;
             });
-            this.context.subscriptions.push(listener);
+            this.commandListeners.push(listener);
         });
 
         // Listen for selection changes to keep cursor in correct position
@@ -467,7 +483,7 @@ export class RetypeMode {
         return char.normalize('NFC');
     }
 
-private areQuotesEquivalent(typed: string, expected: string): boolean {
+    private areQuotesEquivalent(typed: string, expected: string): boolean {
         // Map of equivalent quote characters using Unicode escape sequences
         const quoteMap: { [key: string]: string[] } = {
             '"': ['"', '\u201C', '\u201D'], // straight double quote, left double quote, right double quote
@@ -596,11 +612,7 @@ private areQuotesEquivalent(typed: string, expected: string): boolean {
         const summary = this.statsTracker.getSessionSummary();
         
         vscode.window.showInformationMessage(
-            `ReType Session Complete! 
-            WPM: ${summary.averageWpm} | 
-            Accuracy: ${summary.finalAccuracy}% | 
-            Time: ${summary.duration}s | 
-            Errors: ${summary.errors}`,
+            `ReType Session Complete! WPM: ${summary.averageWpm} | Accuracy: ${summary.finalAccuracy}% | Time: ${summary.duration}s | Errors: ${summary.errors}`,
             'New Session',
             'Stop'
         ).then(selection => {
@@ -638,8 +650,11 @@ private areQuotesEquivalent(typed: string, expected: string): boolean {
             this.selectionChangeListener = undefined;
         }
 
-        // Note: Other command listeners are automatically disposed when the extension context is disposed
-        // since they were added to this.context.subscriptions
+        // Dispose all command listeners registered during practice mode
+        for (const listener of this.commandListeners) {
+            listener.dispose();
+        }
+        this.commandListeners = [];
     }
 
     public dispose(): void {
@@ -647,4 +662,4 @@ private areQuotesEquivalent(typed: string, expected: string): boolean {
         this.decorationManager.dispose();
         this.cleanupEventListeners();
     }
-} 
+}

@@ -29,6 +29,7 @@
         "onCommand:retype.togglePractice",
         "onCommand:retype.resetSession",
         "onCommand:retype.configureKeybinds",
+        "onCommand:retype.pasteAndPractice",
         "onView:retypeSettingsView"
     ],
     "main": "./out/extension.js",
@@ -81,6 +82,11 @@
                 "command": "retype.openSettings",
                 "title": "Open Settings",
                 "category": "ReType"
+            },
+            {
+                "command": "retype.pasteAndPractice",
+                "title": "Paste & Practice",
+                "category": "ReType"
             }
         ],
         "keybindings": [
@@ -88,6 +94,12 @@
                 "command": "retype.togglePractice",
                 "key": "ctrl+`",
                 "mac": "cmd+`"
+            },
+            {
+                "command": "retype.pasteAndPractice",
+                "key": "ctrl+shift+v",
+                "mac": "cmd+shift+v",
+                "when": "editorTextFocus"
             }
         ],
         "configuration": {
