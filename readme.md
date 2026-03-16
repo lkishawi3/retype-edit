@@ -48,10 +48,12 @@ Learn coding by actually typing real code in VS Code! With ReType, beginners can
 
 | Command | Shortcut | Description |
 |---------|----------|-------------|
-| `ReType: Toggle Practice Mode` | <kbd>Ctrl</kbd>+<kbd>`</kbd> / <kbd>Ctrl</kbd>+<kbd>`</kbd> | Toggle typing practice on selected text |
-| `ReType: Start Practice Mode` | - | Start typing practice on selected text |
-| `ReType: Stop Practice Mode` | - | Stop current practice session (same key toggles) |
+| `ReType: Toggle Practice Mode` | <kbd>Ctrl</kbd>+<kbd>`</kbd> | Toggle typing practice on selected text |
+| `ReType: Start Practice Mode` | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> | Start typing practice on selected text |
+| `ReType: Stop Practice Mode` | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd> | Stop current practice session |
 | `ReType: Reset Current Session` | - | Reset current session and start over |
+| `ReType: Paste & Practice` | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> | Paste from clipboard and start practice |
+| `ReType: Configure Keybinds` | - | Open keybindings configuration panel |
 
 ## Settings
 

@@ -96,10 +96,30 @@
                 "mac": "cmd+`"
             },
             {
+                "command": "retype.startPractice",
+                "key": "ctrl+shift+r",
+                "mac": "cmd+shift+r"
+            },
+            {
+                "command": "retype.stopPractice",
+                "key": "ctrl+shift+q",
+                "mac": "cmd+shift+q"
+            },
+            {
                 "command": "retype.pasteAndPractice",
                 "key": "ctrl+shift+v",
                 "mac": "cmd+shift+v",
                 "when": "editorTextFocus"
+            },
+            {
+                "command": "retype.resetSession",
+                "key": "",
+                "mac": ""
+            },
+            {
+                "command": "retype.configureKeybinds",
+                "key": "",
+                "mac": ""
             }
         ],
         "configuration": {
